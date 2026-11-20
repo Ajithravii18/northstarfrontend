@@ -3377,6 +3377,48 @@ button:disabled {
   line-height: 1.55;
 }
 
+.user-status-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-status-action {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid #dfe5ed;
+  border-radius: 5px;
+  background: #fff;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.user-status-action-off {
+  color: #a44b40;
+}
+
+.user-status-action-off:hover:not(:disabled) {
+  border-color: #e6c1bc;
+  background: #fff7f6;
+}
+
+.user-status-action-on {
+  color: #256f5a;
+}
+
+.user-status-action-on:hover:not(:disabled) {
+  border-color: #b7d8c9;
+  background: #f3faf6;
+}
+
+.user-status-action:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
 .reports-intro {
   display: flex;
   align-items: center;

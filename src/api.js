@@ -144,6 +144,13 @@ export const api = {
     });
     return result.user;
   },
+  async updateUserStatus(userId, isActive) {
+    const result = await request(`/users/${encodeURIComponent(userId)}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ isActive }),
+    });
+    return result.user;
+  },
   async createRole(role) {
     await request("/roles", { method: "POST", body: JSON.stringify(encodeRole(role)) });
   },

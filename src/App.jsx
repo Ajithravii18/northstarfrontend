@@ -634,6 +634,17 @@ function RoleDashboard({ user, onLogout }) {
     }
   };
 
+  const handleUserStatusChange = async (userId, isActive) => {
+    const targetUser = allUsers.find((item) => item.id === userId);
+    try {
+      await api.updateUserStatus(userId, isActive);
+      setNoticeMessage(`${targetUser?.name ?? "User"} ${isActive ? "activated" : "deactivated"}.`);
+      await reloadData();
+    } catch (error) {
+      reportRequestError(error, "Could not update user status.");
+    }
+  };
+
   const exportRoles = () => {
     const headings = ["Role name", "Description", "Users assigned", "Status", "Branch scope", "Approval level", "Created date"];
     const lines = filteredRoles.map((role) => [
@@ -907,6 +918,7 @@ function RoleDashboard({ user, onLogout }) {
               branches={branchOptions}
               onRoleChange={handleUserRoleChange}
               onBranchChange={handleUserBranchChange}
+              onStatusChange={handleUserStatusChange}
             />
           )}
 
@@ -1396,6 +1408,7 @@ function UsersPage({
   branches = [],
   onRoleChange,
   onBranchChange,
+  onStatusChange,
 }) {
   const [updatingUserId, setUpdatingUserId] = useState(null);
   const [search, setSearch] = useState("");
@@ -1588,7 +1601,25 @@ function UsersPage({
                     </label>
                   </td>
                   <td>
-                    <StatusTag status={user.isActive ? "Active" : "Inactive"} />
+                    <div className="user-status-cell">
+                      <StatusTag status={user.isActive ? "Active" : "Inactive"} />
+                      <button
+                        className={`user-status-action ${user.isActive ? "user-status-action-off" : "user-status-action-on"}`}
+                        type="button"
+                        disabled={updatingUserId === user.id}
+                        aria-label={`${user.isActive ? "Deactivate" : "Activate"} ${user.name}`}
+                        onClick={async () => {
+                          setUpdatingUserId(user.id);
+                          try {
+                            await onStatusChange(user.id, !user.isActive);
+                          } finally {
+                            setUpdatingUserId(null);
+                          }
+                        }}
+                      >
+                        {updatingUserId === user.id ? "Updating..." : user.isActive ? "Deactivate" : "Activate"}
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
