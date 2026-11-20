@@ -4912,14 +4912,22 @@ body:has(.auth-page) {
   }
 
   .gateway-hero-container {
-    grid-template-columns: 1fr;
-    gap: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 
   .gateway-hero-card {
-    width: min(100%, 380px);
+    order: 1;
+    width: min(100%, 340px);
     justify-self: center;
     margin: 0 auto;
+  }
+
+  .gateway-hero-copy {
+    order: 2;
+    display: flex;
+    flex-direction: column;
   }
 
   .gateway-roles-grid {
@@ -4947,6 +4955,7 @@ body:has(.auth-page) {
   }
 
   .gateway-hero-copy {
+    order: 2;
     display: flex;
     flex-direction: column;
   }
@@ -5034,8 +5043,9 @@ body:has(.auth-page) {
 
   /* Celestial Orbit Visual - Scaled for Mobile mirroring PC version */
   .gateway-hero-card {
+    order: 1;
     width: min(100%, 280px);
-    margin: 8px auto 0;
+    margin: 4px auto 14px;
     justify-self: center;
   }
 
