@@ -137,6 +137,13 @@ export const api = {
     });
     return result.user;
   },
+  async updateUserBranch(userId, branchId) {
+    const result = await request(`/users/${encodeURIComponent(userId)}/branch`, {
+      method: "PATCH",
+      body: JSON.stringify({ branchId }),
+    });
+    return result.user;
+  },
   async createRole(role) {
     await request("/roles", { method: "POST", body: JSON.stringify(encodeRole(role)) });
   },

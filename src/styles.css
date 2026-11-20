@@ -3493,6 +3493,11 @@ button:disabled {
   transition: all 140ms ease;
 }
 
+.user-branch-select-box {
+  min-width: 130px;
+  max-width: 180px;
+}
+
 .user-role-select-box:hover {
   border-color: #cbd5e1;
   background: #f8fafc;

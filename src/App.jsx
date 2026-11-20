@@ -623,6 +623,17 @@ function RoleDashboard({ user, onLogout }) {
     }
   };
 
+  const handleUserBranchChange = async (userId, branchId) => {
+    try {
+      await api.updateUserBranch(userId, branchId);
+      const targetBranch = branchOptions.find((branch) => branch.id === branchId);
+      setNoticeMessage(`Branch updated to ${targetBranch?.name ?? "selected branch"}.`);
+      await reloadData();
+    } catch (error) {
+      reportRequestError(error, "Could not update user branch.");
+    }
+  };
+
   const exportRoles = () => {
     const headings = ["Role name", "Description", "Users assigned", "Status", "Branch scope", "Approval level", "Created date"];
     const lines = filteredRoles.map((role) => [
@@ -895,6 +906,7 @@ function RoleDashboard({ user, onLogout }) {
               roles={roles}
               branches={branchOptions}
               onRoleChange={handleUserRoleChange}
+              onBranchChange={handleUserBranchChange}
             />
           )}
 
@@ -1383,6 +1395,7 @@ function UsersPage({
   roles,
   branches = [],
   onRoleChange,
+  onBranchChange,
 }) {
   const [updatingUserId, setUpdatingUserId] = useState(null);
   const [search, setSearch] = useState("");
@@ -1423,6 +1436,15 @@ function UsersPage({
     }
   };
 
+  const handleBranchSelect = async (userId, branchId) => {
+    setUpdatingUserId(userId);
+    try {
+      await onBranchChange(userId, branchId);
+    } finally {
+      setUpdatingUserId(null);
+    }
+  };
+
   const assignedCount = users.filter((u) => u.roleId).length;
   const activeCount = users.filter((u) => u.isActive).length;
   const uniqueBranchesCount = new Set(users.map((u) => u.branch).filter(Boolean)).size;
@@ -1440,7 +1462,7 @@ function UsersPage({
         <div className="panel-heading">
           <div>
             <h2>All users <span className="heading-count">{filteredUsers.length}</span></h2>
-            <p>Assign active roles and review user branch assignments.</p>
+            <p>Manage role assignments and transfer employees between active branches.</p>
           </div>
         </div>
 
@@ -1521,7 +1543,26 @@ function UsersPage({
                     </div>
                   </td>
                   <td>
-                    <ScopeTag scope={user.branch || "Unassigned"} />
+                    <label className="user-role-select-box user-branch-select-box">
+                      <span className="user-role-select-text">
+                        {updatingUserId === user.id ? "Updating..." : user.branch || "Unassigned"}
+                      </span>
+                      <Icon name="chevron" size={13} />
+                      <select
+                        aria-label={`Branch for ${user.name}`}
+                        value={user.branchId ?? ""}
+                        disabled={updatingUserId === user.id}
+                        onChange={(event) => handleBranchSelect(user.id, event.target.value)}
+                      >
+                        {!user.branchId && <option value="" disabled>Select branch</option>}
+                        {user.branchId && !branches.some((branch) => branch.id === user.branchId) && (
+                          <option value={user.branchId}>{user.branch} (Inactive)</option>
+                        )}
+                        {branches.map((branch) => (
+                          <option key={branch.id} value={branch.id}>{branch.name}</option>
+                        ))}
+                      </select>
+                    </label>
                   </td>
                   <td>
                     <label className="user-role-select-box">
