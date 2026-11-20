@@ -59,6 +59,7 @@ function Reveal({
 
 export function LandingPage({ onLogin }) {
   const prefersReducedMotion = useReducedMotion();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -71,13 +72,29 @@ export function LandingPage({ onLogin }) {
             <Link to="/" className="gateway-brand" aria-label="Northstar ERP">
               <Brand inverse />
             </Link>
-            <nav className="gateway-nav" aria-label="Gateway Navigation">
-              <a href="#overview">Overview</a>
-              <a href="#why-access-control">Why Access Control</a>
-              <a href="#architecture">Architecture</a>
-              <a href="#roles">Enterprise Personas</a>
+            <nav id="gateway-mobile-navigation" className={`gateway-nav${menuOpen ? " gateway-nav-open" : ""}`} aria-label="Gateway Navigation">
+              <a href="#overview" onClick={() => setMenuOpen(false)}>Overview</a>
+              <a href="#why-access-control" onClick={() => setMenuOpen(false)}>Why Access Control</a>
+              <a href="#architecture" onClick={() => setMenuOpen(false)}>Architecture</a>
+              <a href="#roles" onClick={() => setMenuOpen(false)}>Enterprise Personas</a>
+              <button type="button" className="gateway-mobile-signin" onClick={onLogin}>
+                Sign In
+                <ArrowIcon />
+              </button>
             </nav>
             <div className="gateway-header-actions">
+              <button
+                type="button"
+                className="gateway-menu-toggle"
+                aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+                aria-expanded={menuOpen}
+                aria-controls="gateway-mobile-navigation"
+                onClick={() => setMenuOpen((current) => !current)}
+              >
+                <span />
+                <span />
+                <span />
+              </button>
               <button
                 type="button"
                 className="public-button public-button-primary gateway-signin-btn"

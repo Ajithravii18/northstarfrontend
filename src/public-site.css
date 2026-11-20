@@ -5004,3 +5004,189 @@ body:has(.auth-page) {
     transition: none;
   }
 }
+
+.gateway-menu-toggle,
+.gateway-mobile-signin {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .gateway-page .gateway-header {
+    position: sticky;
+  }
+
+  .gateway-header-container {
+    position: relative;
+  }
+
+  .gateway-menu-toggle {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid #e5e1ef;
+    border-radius: 9px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .gateway-menu-toggle span {
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: #3f3b57;
+  }
+
+  .gateway-header-actions .gateway-signin-btn {
+    display: none;
+  }
+
+  .gateway-nav {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    border: 1px solid #e5e1ef;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 18px 44px rgba(38, 34, 67, 0.16);
+  }
+
+  .gateway-nav.gateway-nav-open {
+    display: flex;
+  }
+
+  .gateway-nav a {
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 8px;
+  }
+
+  .gateway-nav a:hover {
+    background: #f6f4fb;
+  }
+
+  .gateway-mobile-signin {
+    min-height: 44px;
+    margin-top: 4px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 8px;
+    color: #fff;
+    background: #5554a5;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 560px) {
+  .gateway-page .gateway-header {
+    min-height: 60px;
+    padding: 8px 14px;
+  }
+
+  .gateway-brand .public-brand-name {
+    font-size: 16px;
+  }
+
+  .gateway-brand .public-brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .gateway-page .gateway-hero {
+    min-height: auto;
+    padding: 34px 18px 44px;
+  }
+
+  .gateway-hero-copy h1 {
+    font-size: clamp(34px, 11vw, 42px);
+    line-height: 1.08;
+  }
+
+  .gateway-hero-sub {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .gateway-hero-cta {
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .gateway-hero-btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  .gateway-secondary-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e1ef;
+    border-radius: 8px;
+  }
+
+  .gateway-security-badges {
+    display: grid !important;
+    grid-template-columns: 1fr;
+  }
+
+  .gateway-security-badges span {
+    min-height: 36px;
+  }
+
+  .gateway-hero-card {
+    width: 100%;
+  }
+
+  .gateway-access-visual {
+    height: 84px;
+  }
+
+  .gateway-page .gateway-section,
+  .gateway-page .gateway-section-dark {
+    padding: 48px 18px;
+  }
+
+  .gateway-feature-card,
+  .gateway-role-card,
+  .flow-step-card {
+    padding: 20px 18px;
+  }
+
+  .gateway-section-title-wrap h2,
+  .gateway-cta-card h2 {
+    font-size: 34px;
+  }
+
+  .gateway-section-title-wrap p,
+  .gateway-feature-card p,
+  .gateway-role-card p,
+  .flow-step-card p {
+    font-size: 14px;
+  }
+
+  .gateway-cta-buttons {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .gateway-cta-btn {
+    width: 100%;
+  }
+}
