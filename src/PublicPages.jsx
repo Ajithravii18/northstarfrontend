@@ -17,6 +17,22 @@ function Brand({ inverse = false }) {
   );
 }
 
+function PasswordField({ label, value, onChange, ...inputProps }) {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <label className="auth-field">
+      <span>{label}</span>
+      <span className="password-input-wrap">
+        <input type={visible ? "text" : "password"} value={value} onChange={onChange} {...inputProps} />
+        <button className="password-visibility-toggle" type="button" onClick={() => setVisible((current) => !current)} aria-label={`${visible ? "Hide" : "Show"} ${label.toLowerCase()}`} aria-pressed={visible}>
+          {visible ? "Hide" : "Show"}
+        </button>
+      </span>
+    </label>
+  );
+}
+
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />;
@@ -484,7 +500,7 @@ export function LoginPage({
                 </>
               )}
               <label className="auth-field"><span>Work email</span><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="username" required maxLength={254} placeholder="admin@northstar.io" /></label>
-              <label className="auth-field"><span>Password</span><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "setup" ? "new-password" : "current-password"} required minLength={mode === "setup" ? 12 : 1} maxLength={128} placeholder="Enter your password" /></label>
+              <PasswordField label="Password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={mode === "setup" ? "new-password" : "current-password"} required minLength={mode === "setup" ? 12 : 1} maxLength={128} placeholder="Enter your password" />
               {mode === "login" && <Link className="auth-forgot-link" to="/forgot-password">Forgot password?</Link>}
               {error && <div className="auth-error" role="alert">{error}</div>}
               <button type="submit" className="public-button public-button-primary auth-submit" disabled={busy}>
@@ -588,14 +604,8 @@ export function ResetPasswordPage() {
         <div className="auth-error" role="alert">This reset link is missing or invalid. Request a new reset link to continue.</div>
       ) : (
         <form className="auth-form" onSubmit={handleSubmit}>
-          <label className="auth-field">
-            <span>New password</span>
-            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" required minLength={12} maxLength={128} />
-          </label>
-          <label className="auth-field">
-            <span>Confirm new password</span>
-            <input type="password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} autoComplete="new-password" required minLength={12} maxLength={128} />
-          </label>
+          <PasswordField label="New password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" required minLength={12} maxLength={128} />
+          <PasswordField label="Confirm new password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} autoComplete="new-password" required minLength={12} maxLength={128} />
           {error && <div className="auth-error" role="alert">{error}</div>}
           <button type="submit" className="public-button public-button-primary auth-submit" disabled={busy}>
             {busy ? "Updating..." : "Update password"}

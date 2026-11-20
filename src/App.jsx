@@ -1668,6 +1668,8 @@ function CreateUserDialog({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmation, setConfirmation] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [roleId, setRoleId] = useState(roles[0]?.id ?? "");
   const [branchId, setBranchId] = useState(branches[0]?.id ?? "");
   const [formError, setFormError] = useState("");
@@ -1701,8 +1703,8 @@ function CreateUserDialog({
           <label className="field field-full"><span>Work email <i>*</i></span><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" maxLength={254} required /></label>
           <label className="field"><span>Role <i>*</i></span><select value={roleId} onChange={(event) => setRoleId(event.target.value)} required>{roles.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)}</select></label>
           <label className="field"><span>Branch <i>*</i></span><select value={branchId} onChange={(event) => setBranchId(event.target.value)} required>{branches.map((branch) => <option key={branch.id} value={branch.id}>{branch.name}</option>)}</select></label>
-          <label className="field field-full"><span>Initial password <i>*</i></span><input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" minLength={12} maxLength={128} required /><small>Use at least 12 characters. Share it through your approved secure channel.</small></label>
-          <label className="field field-full"><span>Confirm password <i>*</i></span><input type="password" value={confirmation} onChange={(event) => setConfirmation(event.target.value)} autoComplete="new-password" minLength={12} maxLength={128} required /></label>
+          <label className="field field-full"><span>Initial password <i>*</i></span><span className="password-input-wrap"><input type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="new-password" minLength={12} maxLength={128} required /><button className="password-visibility-toggle" type="button" onClick={() => setShowPassword((current) => !current)} aria-label={`${showPassword ? "Hide" : "Show"} initial password`} aria-pressed={showPassword}>{showPassword ? "Hide" : "Show"}</button></span><small>Use at least 12 characters. Share it through your approved secure channel.</small></label>
+          <label className="field field-full"><span>Confirm password <i>*</i></span><span className="password-input-wrap"><input type={showConfirmation ? "text" : "password"} value={confirmation} onChange={(event) => setConfirmation(event.target.value)} autoComplete="new-password" minLength={12} maxLength={128} required /><button className="password-visibility-toggle" type="button" onClick={() => setShowConfirmation((current) => !current)} aria-label={`${showConfirmation ? "Hide" : "Show"} confirmation password`} aria-pressed={showConfirmation}>{showConfirmation ? "Hide" : "Show"}</button></span></label>
         </div>
         {!roles.length || !branches.length ? <p className="user-form-note" role="status">An active non-administrator role and branch are required before creating users.</p> : <p className="user-form-note">The protected System Administrator role can only be created through the initial setup flow. Production password recovery remains unavailable until a delivery channel is configured.</p>}
         {formError && <p className="form-error" role="alert">{formError}</p>}

@@ -1969,6 +1969,26 @@ button:disabled {
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
+.field .password-input-wrap {
+  width: 100%;
+}
+
+.field .password-input-wrap input {
+  padding-right: 64px;
+}
+
+.field .password-visibility-toggle {
+  right: 7px;
+  min-height: 30px;
+  color: #526b61;
+  font-size: 10px;
+}
+
+.field .password-visibility-toggle:hover {
+  color: #245f4c;
+  background: rgba(37, 111, 90, 0.08);
+}
+
 .field input:focus,
 .field textarea:focus,
 .field select:focus {
