@@ -85,7 +85,7 @@ export function LandingPage({ onLogin }) {
             <div className="gateway-header-actions">
               <button
                 type="button"
-                className="gateway-menu-toggle"
+                className={`gateway-menu-toggle${menuOpen ? " gateway-menu-toggle-open" : ""}`}
                 aria-label={menuOpen ? "Close navigation" : "Open navigation"}
                 aria-expanded={menuOpen}
                 aria-controls="gateway-mobile-navigation"
@@ -801,21 +801,46 @@ export function UserSessionPortal({ user, onLogout }) {
 }
 
 function ArrowIcon() {
-  return <svg className="public-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>;
+  return (
+    <svg className="public-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14m-6-6 6 6-6 6" />
+    </svg>
+  );
 }
 
 function ShieldIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 19 6v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Z" /><path d="m9 12 2 2 4-4" /></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 19 6v5c0 4.5-2.8 8-7 10-4.2-2-7-5.5-7-10V6l7-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
 }
 
 function LockIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" /></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="10" width="14" height="11" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" />
+    </svg>
+  );
 }
 
 function ApprovalIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5 9.2 17 19 7" /><path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" /></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12.5 9.2 17 19 7" />
+      <path d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5" />
+    </svg>
+  );
 }
 
 function AuditIcon() {
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16M4 12h10M4 19h7" /><circle cx="18" cy="16.5" r="3.5" /><path d="M18 14.5v2l1.5 1" /></svg>;
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 5h16M4 12h10M4 19h7" />
+      <circle cx="18" cy="16.5" r="3.5" />
+      <path d="M18 14.5v2l1.5 1" />
+    </svg>
+  );
 }
